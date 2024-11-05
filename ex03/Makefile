@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: louismdv <louismdv@student.42.fr>          +#+  +:+       +#+         #
+#    By: lmerveil <lmerveil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 15:51:33 by louismdv          #+#    #+#              #
-#    Updated: 2024/10/31 19:09:57 by louismdv         ###   ########.fr        #
+#    Updated: 2024/11/05 16:04:44 by lmerveil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= 	amateria
 
 CXX 		= 	c++
-CXXFLAGS	= 	-Wall -Wextra -Werror -std=c++98 -fsanitize=address
+CXXFLAGS	= 	-Wall -Wextra -Werror -std=c++98 -g3
 
 RED			= 	$(shell tput setaf 1)
 GREEN		= 	$(shell tput setaf 2)

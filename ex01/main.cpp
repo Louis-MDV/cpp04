@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louismdv <louismdv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmerveil <lmerveil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:36:48 by louismdv          #+#    #+#             */
-/*   Updated: 2024/10/27 11:58:07 by louismdv         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:12:36 by lmerveil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,16 @@ int main() {
 
     std::cout << "--------------------[DOG] DEEP COPY TESTING-------------------" << std::endl;
     
-    Dog src1("big black DOG");
-    Dog dogCopy = src1;
-    std::cout << "src type: " << src1.getType() << std::endl;
-    std::cout << "copy type: " << dogCopy.getType() << std::endl;
+    Animal *dogSrc = new Dog("big black DOG");
+    Animal *dogCopy = dogSrc;
+	
+	std::cout << "src type: " << dogSrc->getType() << std::endl;
+    std::cout << "copy type: " << dogCopy->getType() << std::endl;
 
-    src1.setType("pink funny DOG");
-    std::cout << "src type: " << src1.getType() << std::endl;
-    std::cout << "copy type: " << dogCopy.getType() << std::endl;
+    delete dogSrc;
+
+    // std::cout << "src type: " << dogSrc->getType() << std::endl;
+    std::cout << "copy type: " << dogCopy->getType() << std::endl;
 
 
     std::cout << "--------------------[CAT] DEEP COPY TESTING--------------------" << std::endl;

@@ -8,13 +8,11 @@ int MateriaSource::_count = 0;
 MateriaSource::MateriaSource() {
     for (int i = 0; i < 4; ++i)
         materiaTab[i] = NULL;
-    std::cout << GREEN << "* [MATERIASOURCE] Default constructor called!" << RESET << std::endl;
 }
 
 //copy constructor
 MateriaSource::MateriaSource(const MateriaSource& src) {
     *this = src;
-    std::cout << YELLOW << "* [MATERIASOURCE] Copy constructor called! Created: " << RESET << std::endl;
 }
 
 //assignement operator
@@ -33,7 +31,6 @@ MateriaSource&  MateriaSource::operator=(const MateriaSource& src) {
         }
     }
     this->_count = src._count;
-    std::cout << BLUE << "* [MATERIASOURCE] Assignement operator called!" << RESET << std::endl;
     return(*this);
 }
 
@@ -43,17 +40,20 @@ MateriaSource::~MateriaSource() {
         if(materiaTab[i] != NULL)
             delete materiaTab[i];
     }
-    std::cout << RED << "* [MATERIASOURCE] Destructor called!" << RESET << std::endl;
 }
 
 void    MateriaSource::learnMateria(AMateria* newMateria) {
 
     for(int i = 0; i < 4; ++i) { 
         if (_count < 4 && this->materiaTab[_count] == NULL && newMateria) {
-        std::cout << BOLD << RED << newMateria->getType() << RESET << " added to slot " << BOLD << RED << _count << RESET << " of learned materias\n";
-        this->materiaTab[_count] = newMateria;
-        _count++;
-    }
+			std::cout << BOLD << RED << newMateria->getType() << RESET << " added to slot " << BOLD << RED << _count << RESET << " of learned materias\n";
+			this->materiaTab[_count] = newMateria;
+			_count++;
+			return ;
+    	}
+	}
+	delete newMateria;
+	std::cerr <<RED+ "Inventory learned materia full\n" +RESET;
 }
 
 AMateria*   MateriaSource::createMateria(std::string const & type) {
@@ -63,8 +63,8 @@ AMateria*   MateriaSource::createMateria(std::string const & type) {
         return (0);
     }
     for (int i = 0; i < _count; ++i) {
-        if (type == materiaTab[i]->getType()) {
-            return (materiaTab[i]->clone());
+		if (type == materiaTab[i]->getType()) {
+            return (materiaTab[i]);
         }
     }
     return (0);

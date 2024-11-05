@@ -7,7 +7,6 @@ Character::Character(void) : _name("undefined character"), _unequip(NULL) {
 
     for (int i = 0; i < 4; ++i)
         _equipped[i] = NULL;
-    std::cout << GREEN << "     * [CHARACTER] Default constructor called!\n" << RESET;
 }
 
 //constructor
@@ -15,7 +14,6 @@ Character::Character(const std::string &name) : _name(name), _unequip(NULL) {
 
     for (int i = 0; i < 4; ++i)
         _equipped[i] = NULL;
-    std::cout << GREEN << "     * [CHARACTER] Constructor called! Created: " << ITALIC << BOLD << _name  << RESET << std::endl;
 }
 
 //copy constructor
@@ -29,7 +27,6 @@ Character::Character(const Character& src) {
     }
     this->_name = src._name;
     this->_unequip = src._unequip;
-    std::cout << YELLOW << "* [CHARACTER] Copy constructor called! Created: " << ITALIC << BOLD << _name  << RESET << std::endl;
 }
 
 //assignement operator
@@ -48,7 +45,6 @@ Character&  Character::operator=(const Character& src) {
         }
         this->_name = src._name;
         this->_unequip = src._unequip;
-        std::cout << BLUE << "* [CHARACTER] Assignement operator called! Copied: " << src._name << " to " << ITALIC << BOLD << _name  << RESET << std::endl;
     }
     return(*this);
 }
@@ -56,13 +52,12 @@ Character&  Character::operator=(const Character& src) {
 //destructor
 Character::~Character() {
     
-    for (int i = 0; this->_equipped[i]; ++i) {
-        delete this->_equipped[i];
+    for (int i = 0; i < 4; ++i) {
+        if(this->_equipped[i] != NULL){
+			delete this->_equipped[i];
         this->_equipped[i] = NULL;
+		}
     }
-    if (this->_unequip != NULL)
-        delete this->_unequip;
-    std::cout << RED << "   * [CHARACTER] Destructor called! Destroyed: " << _name << RESET << std::endl;
 }
 
 /*______________________________INTERFACE_FUNCTIONS______________________________*/
@@ -78,9 +73,11 @@ void Character::equip(AMateria* m) {
         return;
     }
     for (int i = 0; i < 4; ++i) {
-        std::cout << GREEN << "     [equip] Added a new " << m->getType() << " to slot " << i << RESET << std::endl;
-        _equipped[i] = m->clone();
-        return ;
+		if (_equipped[i] == NULL) {
+			_equipped[i] = m->clone();
+			std::cout << GREEN << "     [equip] Added a new " << m->getType() << " to slot " << i << RESET << std::endl;
+			return ;
+		}
     }
     std::cout << RED << "[error] All 4 inventory slots are full." << RESET << std::endl;
 }
@@ -90,11 +87,12 @@ void Character::unequip(int idx) {
     if (this->_equipped[idx] == NULL)
 	    std::cout << "[unequip] " << this->_name << " has nothing to unequip at index " << idx << std::endl;
     else {
-        this->_unequip = _equipped[idx];
-        this->_equipped[idx] = NULL;
-	    std::cout << this->_name << " unequipped " << _unequip[idx].getType() << std::endl;
-        if (this->_unequip)
+		this->_unequip = _equipped[idx];
+	    std::cout << this->_name << " unequipped " << _unequip->getType() << std::endl;
+		if (this->_unequip)
             delete (this->_unequip);
+		this->_equipped[idx] = NULL;
+       
     }
 }
 
